@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DrugInfoSearchV2.Models.Drugs>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th class="col-xs-1">
+            @Html.DisplayNameFor(model => model.DrugCode)
+        </th>
+        <th class="col-xs-4">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="col-xs-2">
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th class="col-xs-3">
+            @Html.DisplayNameFor(model => model.Classifications.ClassificationCode)
+        </th>
+        <th class="col-xs-2"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DrugCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Classifications.ClassificationCode)
+            @Html.DisplayFor(modelItem => item.Classifications.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.DrugId })
+            @if (string.IsNullOrEmpty(item.DrugCode))
+            {
+                @Html.Raw("|")
+                @Html.ActionLink("Edit", "Edit", new { id = item.DrugId })
+                @Html.Raw("|")
+                @Html.ActionLink("Delete", "Delete", new { id = item.DrugId })
+            }
+        </td>
+    </tr>
+}
+
+</table>

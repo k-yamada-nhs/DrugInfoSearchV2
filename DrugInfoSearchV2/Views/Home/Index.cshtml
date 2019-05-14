@@ -1,0 +1,100 @@
+﻿@model DrugInfoSearchV2.Models.SearchViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>SearchViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DrugName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DrugName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DrugName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassificationId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ClassificationId", null, htmlAttributes: new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.ClassificationId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="検索" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@Html.ActionLink("Create New", "Create", new { Controller = "Drugs"})
+
+
+@{ 
+    var drug = new DrugInfoSearchV2.Models.Drugs();
+}
+
+@if(Model.Drugs != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => drug.DrugCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => drug.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => drug.Company)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => drug.Classifications.ClassificationCode)
+            </th>
+        </tr>
+
+        @foreach(var item in Model.Drugs)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrugCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Classifications.ClassificationCode)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.DrugId, Controller = "Drugs" })
+                @if (string.IsNullOrEmpty(item.DrugCode))
+                {
+                    @Html.Raw("|")
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DrugId, Controller = "Drugs" })
+                    @Html.Raw("|")
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DrugId, Controller = "Drugs" })
+
+                }
+            </td>
+        </tr>
+        }
+    </table>
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,57 @@
+﻿@model DrugInfoSearchV2.Models.Drugs
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>以下のデータを削除します。よろしいですか？</h3>
+<div>
+    <h4>Drugs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DrugCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DrugCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Classifications.ClassificationCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classifications.ClassificationCode)
+            @Html.DisplayFor(model => model.Classifications.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
